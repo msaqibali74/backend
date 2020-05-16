@@ -8,67 +8,24 @@ class App extends Component {
         email: '',
         password: '',
       }
-      /*
-      this.handleFieldChange = this.handleFieldChange.bind(this)
-      this.handleCreateApp = this.handleCreateApp.bind(this)
-      this.hasErrorFor = this.hasErrorFor.bind(this)
-      this.renderErrorFor = this.renderErrorFor.bind(this)*/
     }
     handleEmailChange(event) {
       this.setState({email: event.target.value});
-      //alert(event.target.value);
    }
    handlePasswordChange(event){
       this.setState({password: event.target.value});
    }
-/*
-    handleFieldChange (event) {
-      this.setState({
-        [event.target.email]: event.target.value
-      })
-    }*/
-
     handleLoginApp (event) {
-      //  console.log("Hello");
-       alert(`EMail: ${email.value}`);
-        //console.log("Password: " + this.state.password);
-      
-        /*
-      event.preventDefault()
-
-      const { history } = this.props
-
-      const project = {
-        name: this.state.name,
-        description: this.state.description
-      }*/
-/*
-      axios.post('/api/projects', project)
-        .then(response => {
-          // redirect to the homepage
-          history.push('/')
-        })
-        .catch(error => {
-          this.setState({
-            errors: error.response.data.errors
-          })
-        })*/
+       //alert(`EMail: ${email.value}`);
+       $.ajax({
+        url:'login',
+        type: 'post',
+        success:function(response)
+        {   
+            alert(response);
+        }
+       });
     }
-/*
-    hasErrorFor (field) {
-      return !!this.state.errors[field]
-    }*/
-/*
-    renderErrorFor (field) {
-      if (this.hasErrorFor(field)) {
-        return (
-          <span className='invalid-feedback'>
-            <strong>{this.state.errors[field][0]}</strong>
-          </span>
-        )
-      }
-    }*/
-
     render () {
       return (
         <div className='container py-4'>
@@ -108,36 +65,4 @@ class App extends Component {
       )
     }
   }
-
-  ReactDOM.render(<App />, document.getElementById('login'))
-/*
-class App extends Component{
-    constructor()
-    {
-        super();
-        this.state={
-            email:"",
-            password:"",
-        }
-    }
-    submit()
-    {
-        console.log(this.state);
-        //alert("Hello");
-    }
-    render(){
-        return(
-            <div className="container">
-                <h1>Login</h1>
-                <input type="text" onChange={(item)=>{this.setState({email:item.target.value})}} />
-                <input type="password" onChange={(item)=>{this.setState({password:item.target.value})}} />
-                <button onClick="{()=>this.submit()}">Login</button>
-            </div>
-        );
-    }
-}
-
-export default App;
-if (document.getElementById('login')) {
-    ReactDOM.render(document.getElementById('login'));
-}*/
+  ReactDOM.render(<App />, document.getElementById('lodgin'))

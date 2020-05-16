@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
 import '../../../public/assets/bootstrap/css/bootstrap.css';
 import '../../../public/assets/helpers/animate.css';
 import '../../../public/assets/helpers/backgrounds.css';
@@ -93,40 +94,72 @@ import'../../../public/assets/themes/components/default.css';
 import'../../../public/assets/themes/components/border-radius.css';
 import'../../../public/assets/helpers/responsive-elements.css';
 import'../../../public/assets/helpers/admin-responsive.css';
-// import'../../../public/assets/js-core/jquery-core..js';
-// import'../../../public/assets/js-core/jquery-ui-core..js';
-// import'../../../public/assets/js-core/jquery-ui-widget..js';
-// import'../../../public/assets/js-core/jquery-ui-mouse..js';
-// import'../../../public/assets/js-core/jquery-ui-position..js';
-// import'../../../public/assets/js-core/modernizr..js';
-// import'../../../public/assets/js-core/jquery-cookie..js';
-function Login() {
-    return (
-            <div class="center-vertical">
-                <div class="center-content row">
-                    <div class="col-md-6 center-margin">
-                        <h3 class="text-center pad15B font-gray text-transform-upr font-size-23">Login <span class="opacity-80">v1.0</span></h3>
-                        <div class="content-box border-top border-red clearfix">
-                            <div class="content-box-wrapper row">
-                                <form  onSubmit={this.handleSubmit} id="login-validation" className="col-md-12">
+
+
+class Login extends Component {
+    /*
+    constructor (props) {
+      super(props)
+      this.state = {
+        email: '',
+        password: '',
+      }
+    }
+    handleEmailChange(event) {
+      this.setState({email: event.target.value});
+   }
+   handlePasswordChange(event){
+      this.setState({password: event.target.value});
+   }*/
+   handleLoginApp (event) {
+        $.ajax({
+        url:'/logins',
+        type: 'post',
+        success:function(response)
+        {   
+            alert(response);
+        }
+        });
+    }
+    render () {
+      return (
+        <div className="center-vertical">
+                <div className="center-content row">
+                    <div className="col-md-6 center-margin">
+                        <h3 className="text-center pad15B font-gray text-transform-upr font-size-23">Login <span className="opacity-80">v1.0</span></h3>
+                        <div className="content-box border-top border-red clearfix">
+                            <div className="content-box-wrapper row">
+                                <form  id="login-validation" className="col-md-12" method="post">
+                                    <input type="hidden" name="csrf-token" value={this.props.csrf_token.value}  />
                                     <div id="login-form">
                                         <div className="pad20A">
                                             <div className="form-group">
-                                                <label for="exampleInputEmail1">Email address:</label>
+                                                <label htmlFor="email">Email address:</label>
                                                 <div className="input-group input-group-lg">
                                                     <span className="input-group-addon addon-inside bg-white font-primary">
                                                         <i className="glyph-icon icon-envelope-o"></i>
                                                     </span>
-                                                    <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email" value={this.state.value} onChange={this.handleChange} />
+                                                    <input type="email"
+                                                    id='email'
+                                                    type='text'
+                                                    className={`form-control`}
+                                                    name='email'
+                                                    placeholder="Enter email" 
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="form-group">
-                                                <label for="exampleInputPassword1">Password:</label>
+                                                <label htmlFor="password">Password:</label>
                                                 <div className="input-group input-group-lg">
                                                     <span className="input-group-addon addon-inside bg-white font-primary">
                                                         <i className="glyph-icon icon-unlock-alt"></i>
                                                     </span>
-                                                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" value={this.state.value} onChange={this.handleChange} />
+                                                    <input 
+                                                    type="password" 
+                                                    className="form-control"
+                                                    id='password'
+                                                    placeholder="Password"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="row mrg15B">
@@ -137,20 +170,18 @@ function Login() {
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div className="form-group">
-                                                <button type="submit" className="btn btn-block btn-blue-alt">Login</button>
-                                            </div>
-                                    </div>
+                                         </div>
                                     </div>
                                 </form>
+                                <div className="form-group">
+                                    <button type="submit" onClick={this.handleLoginApp} className="btn btn-block btn-blue-alt">Login</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    );
-}
-export default Login;
-if (document.getElementById('login')) {
-    ReactDOM.render(<Login />, document.getElementById('login'));
-}
+      )
+    }
+  }
+  ReactDOM.render(<Login />, document.getElementById('login'))
